@@ -7,4 +7,4 @@ def getTextFromAudio(filepath):
         text = r.recognize_google(audio_data)
         return text
 
-print(getTextFromAudio("sounds/test.wav"))
+print(getTextFromAudio("sounds/output.wav"))
