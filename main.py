@@ -1,10 +1,10 @@
 import speech_recognition as sr
 
-filename = "sounds/test.wav"
+def getAudioText(filepath):
+    with sr.AudioFile(filepath) as source:
+        r = sr.Recognizer()
+        audio_data = r.record(source)
+        text = r.recognize_google(audio_data)
+        return text
 
-r = sr.Recognizer()
-
-with sr.AudioFile(filename) as source:
-    audio_data = r.record(source)
-    text = r.recognize_google(audio_data)
-    print(text)
+print(getAudioText("sounds/test.wav"))
