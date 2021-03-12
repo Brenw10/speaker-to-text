@@ -7,9 +7,9 @@ executable = 'main.exe'
 directory = 'sounds'
 extension = 'wav'
 filename = 'output'
-filenameNew = 'output2'
+filename_new = 'output2'
 filepath = directory + '/' + filename + '.' + extension
-filepathNew = directory + '/' + filenameNew + '.' + extension
+filepath_new = directory + '/' + filename_new + '.' + extension
 
 r = sr.Recognizer()
 
@@ -31,12 +31,12 @@ def get_text_from_audio(filepath):
 
 if __name__ == '__main__':
   create_directory(directory)
-  
+
   while True:
     try:
       record_system_audio(filepath)
       convert_to_wav(filepath, filepath)
       text = get_text_from_audio(filepath)
       print(text)
-    except Exception as err:
-      print(err)
+    except:
+      print('-')
