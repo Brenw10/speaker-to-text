@@ -62,7 +62,7 @@ int main(int argc, char** argv)
         return -3;
     }
 
-    sleep(2);
+    sleep(3);
     
     ma_device_uninit(&device);
     ma_encoder_uninit(&encoder);
