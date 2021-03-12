@@ -3,6 +3,7 @@ import os
 import speech_recognition as sr
 from pydub import AudioSegment
 from multiprocessing import Process
+from deep_translator import GoogleTranslator
 
 executable = 'main.exe'
 directory = 'sounds'
@@ -29,11 +30,20 @@ def get_text_from_audio(filepath):
   except:
     return
 
+def get_text_translated(text):
+  try:
+    return GoogleTranslator(source='auto', target='pt').translate(text)
+  except:
+    return
+
 def read_output(filepath):
   convert_to_wav(filepath, filepath)
   text = get_text_from_audio(filepath)
+  translated = get_text_translated(text)
   os.remove(filepath)
-  print(text)
+  print(text, end='')
+  print(' - ', end='')
+  print(translated)
 
 if __name__ == '__main__':
   create_directory(directory)
