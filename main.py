@@ -1,10 +1,12 @@
 import subprocess
 import os
 import speech_recognition as sr
+from pydub import AudioSegment
 
-directory = 'sounds'
-filepath = directory + '/output.wav'
 r = sr.Recognizer()
+
+def convertToWav(filepath):
+  AudioSegment.from_wav(filepath).export(filepath, format=extension)
 
 def getTextFromAudio(filepath):
   with sr.AudioFile(filepath) as source:
@@ -12,9 +14,21 @@ def getTextFromAudio(filepath):
     text = r.recognize_google(audio_data)
     return text
 
-if not os.path.exists(directory):
-  os.makedirs(directory)
+def createDirectory(directory):
+  if not os.path.exists(directory):
+    os.makedirs(directory)
+  
+directory = 'sounds'
+extension = 'wav'
+filepath = directory + '/output.' + extension
 
-subprocess.call("main.exe " + filepath)
-text = getTextFromAudio(filepath)
-print(text)
+createDirectory(directory)
+
+while True:
+  try:
+    subprocess.call("main.exe " + filepath)
+    convertToWav(filepath)
+    text = getTextFromAudio(filepath)
+    print(text)
+  except Exception as err:
+    print(err)
