@@ -31,6 +31,7 @@ def get_text_from_audio(filepath):
 
 if __name__ == '__main__':
   create_directory(directory)
+  
   while True:
     try:
       record_system_audio(filepath)
