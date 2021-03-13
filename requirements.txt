@@ -1,3 +1,0 @@
-SpeechRecognition
-pydub
-deep-translator
