@@ -7,6 +7,7 @@ int main() {
     char record_path[] = "records/";
     char sounds_path[] = "sounds/";
     char extension[] = ".wav";
+    char wav_converter[] = "py src/scripts/wavconverter.py";
 
     mkdir(record_path);
     mkdir(sounds_path);
@@ -21,7 +22,19 @@ int main() {
     sleep(3);
     stop_system_record();
 
-    system("py src/scripts/wavconverter.py records/1.wav sounds/1.wav");
-    
+    char sounds_filepath[strlen(sounds_path) + strlen(index_str) + strlen(extension)];
+    strcpy(sounds_filepath, sounds_path);
+    strcat(sounds_filepath, index_str);
+    strcat(sounds_filepath, extension);
+
+    char cmd[strlen(wav_converter) + 1 + strlen(record_filepath) + 1 + strlen(sounds_filepath)];
+    strcpy(cmd, wav_converter);
+    strcat(cmd, " ");
+    strcat(cmd, record_filepath);
+    strcat(cmd, " ");
+    strcat(cmd, sounds_filepath);
+
+    system(cmd);
+
     return 0;
 }
