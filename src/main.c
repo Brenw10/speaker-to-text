@@ -4,7 +4,7 @@
 #include "string.c"
 
 int main() {
-    char record_path[] = "record/";
+    char record_path[] = "records/";
     char sounds_path[] = "sounds/";
     char extension[] = ".wav";
 
@@ -20,6 +20,8 @@ int main() {
     start_system_record(record_filepath);
     sleep(3);
     stop_system_record();
+
+    system("py src/scripts/wavconverter.py records/1.wav sounds/1.wav");
     
     return 0;
 }
