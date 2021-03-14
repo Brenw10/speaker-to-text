@@ -17,34 +17,16 @@ int main() {
     int i = 0;
     for (;;) {
         char* index_str = convert_int_to_string(++i);
-        char records_filepath[strlen(record_path) + strlen(index_str) + strlen(extension)];
-        strcpy(records_filepath, record_path);
-        strcat(records_filepath, index_str);
-        strcat(records_filepath, extension);
+        char* records_filepath = concat_string((char*[]){record_path, index_str, extension}, 3);
+        char* sounds_filepath = concat_string((char*[]){sounds_path, index_str, extension}, 3);
+        char* converter_cmd = concat_string((char*[]){wav_converter, " ", records_filepath, " ", sounds_filepath}, 5);
+        char* recognition_cmd = concat_string((char*[]){recognition, " ", sounds_filepath}, 3);
 
         start_system_record(records_filepath);
         sleep(3);
         stop_system_record();
 
-        char sounds_filepath[strlen(sounds_path) + strlen(index_str) + strlen(extension)];
-        strcpy(sounds_filepath, sounds_path);
-        strcat(sounds_filepath, index_str);
-        strcat(sounds_filepath, extension);
-
-        char converter_cmd[strlen(wav_converter) + 1 + strlen(records_filepath) + 1 + strlen(sounds_filepath)];
-        strcpy(converter_cmd, wav_converter);
-        strcat(converter_cmd, " ");
-        strcat(converter_cmd, records_filepath);
-        strcat(converter_cmd, " ");
-        strcat(converter_cmd, sounds_filepath);
-
         system(converter_cmd);
-
-        char recognition_cmd[strlen(recognition) + 1 + strlen(sounds_filepath)];
-        strcpy(recognition_cmd, recognition);
-        strcat(recognition_cmd, " ");
-        strcat(recognition_cmd, sounds_filepath);
-
         system(recognition_cmd);
 
         remove(records_filepath);
