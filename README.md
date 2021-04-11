@@ -1,4 +1,4 @@
-# Realtime Speaker-to-text
+# Realtime Speaker-to-Text
 
 ## Pre-requisites
  - python3
